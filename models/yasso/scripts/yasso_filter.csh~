@@ -1,0 +1,31 @@
+#!/bin/csh
+
+mkdir advance_model
+
+cd advance_model
+ln -s ../../model/yasso
+ln -s ../../model/CreateInit
+
+cp ../../scripts/Simul_clim.dat .
+cp ../../scripts/Simul_litter.dat .
+cp ../../scripts/years.dat .
+
+@ ii = 1
+
+while ($ii <= 1)
+
+    echo "$ii" > loop.dat
+    @ ii += 1
+
+    ./yasso
+    ./CreateInit
+    ncgen filter_input_yasso -o filter_input_yasso.nc
+
+    cd ..
+    cp advance_model/filter_input_yasso.nc .
+
+    ./filter
+    
+end
+
+# rm -rf advance_model

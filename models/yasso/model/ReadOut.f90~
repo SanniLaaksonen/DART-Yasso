@@ -1,0 +1,15 @@
+program ReadOut
+  use :: netcdf
+  implicit none
+
+  character(len=*), parameter :: file_name='filter_output_yasso.nc'
+  integer, parameter :: n_ens = 50  ! Number of ensemble members
+  integer, parameter :: n_state = 6 ! Length of state vector
+
+  integer :: ncid, varid
+  real, dimension(n_state*n_ens) :: Ens_vector
+  real, dimension(n_state, n_ens) ::  Ens
+
+!  call nf90_open(file_name, NF90_NOWRITE, ncid)
+  
+end program ReadOut
