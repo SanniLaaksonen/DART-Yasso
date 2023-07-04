@@ -17,7 +17,7 @@ cp ../../model/ens_projection.dat .
 
 @ ii = 1
 
-while ($ii <= 1)
+while ($ii <= 1) #change the number of loops here
 
     echo "$ii" > loop.dat
 
