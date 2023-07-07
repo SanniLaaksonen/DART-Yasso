@@ -81,7 +81,7 @@ type(time_type) :: time_step
 
 ! EXAMPLE: perhaps a namelist here for anything you want to/can set at runtime.
 ! this is optional!  only add things which can be changed at runtime.
-integer(i8) :: model_size = 6
+integer(i8) :: model_size = 6 !käsin
 integer     :: time_step_days = 0
 integer     :: time_step_seconds = 0
 
@@ -111,6 +111,7 @@ allocate(state_loc(model_size))
 
 ! Define the locations of the model state variables
 ! Example location following lorenz_96
+!lokaatio oikein, joka lokaatiossa 6 muuntujaa, lukee model sizesta, jos model size esim 12, ekat 1 jne.
 do i = 1, model_size
     x_loc = 1.  
 !   x_loc = (i - 1.0_r8) / model_size
@@ -273,6 +274,7 @@ integer,             intent(out), optional :: qty_type
 location = state_loc(index_in)
 ! if (present(qty_type)) qty_type = QTY_STATE_VARIABLE
 
+!1 aina yks, 7, jne.
 if(index_in .eq. 1) qty_type = QTY_CARBON_SUM
 if(index_in .eq. 2) qty_type = QTY_ACID_SOLUBLE
 if(index_in .eq. 3) qty_type = QTY_WATER_SOLUBLE

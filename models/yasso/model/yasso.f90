@@ -5,7 +5,8 @@ use yasso_core20
 
 implicit none
 
-integer :: ii, jj, length, alku, loppu
+integer :: ii, jj, length, alku, loppu, i, j, k, n
+real :: a(6), b(6)
 integer :: sites
 integer :: site
 integer :: loop, fyear, lyear
@@ -24,6 +25,9 @@ character(len=50) :: data_line = '(F12.3,5F12.7)'
 character(len=50) :: litter_file
 character(len=50) :: init_file
 character(len=50) :: ens_file
+
+!Determine the number of observation sites
+sites = 2
 
 length = lSimul !Size of weather conditions files
 
@@ -69,28 +73,20 @@ do ii = 1, length
    end if
 end do
 
-!open(11, file='init_ensemble.dat')
-!Test number of sites
-sites = 2
-
+! Open the output file
+open(21, file='ens_projection_sites.dat')
+! Loop over each site
 do site = 1, sites
    ! Read in the site specific litter file
    write (litter_file, fmt='(a,i1,a)') 'Simul_litter_', site, '.dat'
    !print*, litter_file
-   !litter_file = 'Simul_litter_' // trim(char(site)) // '.dat'
    open(19, file=litter_file)
    do ii = 1, length
       read(19,*) years(ii), nli(site,ii,:) !First nli number means litter file number
    end do
    close(19)
-   
-   !open(21, file='ens_projection_TEST.dat')
-   write (ens_file, fmt='(a,i1,a)') 'ens_projection_split_', site, '.dat'
-   open(21, file=ens_file)
-   !open(11, file='init_ensemble.dat')
    write (init_file, fmt='(a,i1,a)') 'init_ensemble_split_', site, '.dat'
    open(11, file=init_file)
-
    !run model
    do jj = 1, EnsSize
       read(11,*) init
@@ -107,6 +103,9 @@ do site = 1, sites
       end if
    end do
    close(11)
-   close(21)
 end do
+close(21)
+
+
+
 End Program Yasso
