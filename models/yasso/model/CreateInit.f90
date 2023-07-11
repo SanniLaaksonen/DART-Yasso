@@ -5,6 +5,7 @@ Program CreateInit
   integer :: ii
   integer :: ensemble_size = 50
   integer :: state_vector_size = 6*n
+  integer :: state_vector_size_s = 50
   integer :: ensemble_length
   integer :: site
   integer :: sites
@@ -22,10 +23,10 @@ Program CreateInit
   allocate(loc_form(n*6))
   
   allocate(loc_vector(state_vector_size))
-  allocate(prior_mean(state_vector_size))
-  allocate(prior_sd(state_vector_size))
-  allocate(post_mean(state_vector_size))
-  allocate(post_sd(state_vector_size))
+  allocate(prior_mean(state_vector_size_s))
+  allocate(prior_sd(state_vector_size_s))
+  allocate(post_mean(state_vector_size_s))
+  allocate(post_sd(state_vector_size_s))
   allocate(Ens(state_vector_size,ensemble_size)) !State vector size 12 when 2 sites
 
   prior_mean = 1.
@@ -38,7 +39,7 @@ Program CreateInit
   write(loc_fmt, '(a,i0,a)') '(A12,', state_vector_size-1, '(F3.1:", "),F3.1,A)'
   write(ens_fmt, '(a,i0,a)') '(A3,', ensemble_length-1, '(F7.4:", "),F7.4,A)'
   write(post_fmt, '(a,i0,a)') '(A2,', state_vector_size-1, '(F3.1:", "),F3.1,A)'
-  !write(post_fmt_s, '(a,i0,a)') '(A2,', state_vector_size_s-1, '(F3.1:", "),F3.1,A)'
+  write(post_fmt_s, '(a,i0,a)') '(A2,', state_vector_size_s-1, '(F3.1:", "),F3.1,A)'
   
 
      ! loc_vector = 1 !lokaatiovektori, lokaatio ekat 6 on 1, tokat 2 jne.
@@ -69,7 +70,7 @@ Program CreateInit
      write(10,'(a)') 'dimensions:'
      write(10,*)     ' member =', ensemble_size, ';'
      write(10,'(a)') '  metadatalength = 32 ;'
-     write(10,*)     ' location = ', state_vector_size, ';'
+     write(10,*)     ' location = ', state_vector_size, ';' !Does this need changing?
      write(10,'(a)') ' time = UNLIMITED ; // (1 currently)'
      write(10,'(a)') 'variables:'
      write(10,'(a)')
@@ -134,16 +135,16 @@ Program CreateInit
      write(10,ens_fmt) '   ', Ens_vector(1:ensemble_length-1), ens_vector(ensemble_length), ' ;'
      write(10,'(a)')
      write(10,'(a)') ' state_priorinf_mean='
-     write(10,post_fmt) '  ', prior_mean(1:state_vector_size-1), prior_mean(state_vector_size), ' ;'
+     write(10,post_fmt_s) '  ', prior_mean(1:state_vector_size_s-1), prior_mean(state_vector_size_s), ' ;'
      write(10,'(a)')
      write(10,'(a)') ' state_priorinf_sd ='
-     write(10,post_fmt) '  ', prior_sd(1:state_vector_size-1), prior_sd(state_vector_size), ' ;'
+     write(10,post_fmt_s) '  ', prior_sd(1:state_vector_size_s-1), prior_sd(state_vector_size_s), ' ;'
      write(10,'(a)')
      write(10,'(a)') ' state_postinf_mean ='
-     write(10,post_fmt) '  ', post_mean(1:state_vector_size-1), post_mean(state_vector_size), ' ;'
+     write(10,post_fmt_s) '  ', post_mean(1:state_vector_size_s-1), post_mean(state_vector_size_s), ' ;'
      write(10,'(a)')
      write(10,'(a)') ' state_postinf_sd ='
-     write(10,post_fmt) '  ', post_sd(1:state_vector_size-1), post_sd(state_vector_size), ' ;'
+     write(10,post_fmt_s) '  ', post_sd(1:state_vector_size_s-1), post_sd(state_vector_size_s), ' ;'
      write(10,'(a)')
      write(10,'(a)') ' time = 0. ;'
      write(10,'(a)')

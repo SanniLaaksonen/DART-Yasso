@@ -11,10 +11,6 @@ source "$DART"/build_templates/buildfunctions.sh
 
 MODEL=yasso
 LOCATION=oned
-EXCLUDE=(
-work
-scripts
-)
 
 
 programs=(

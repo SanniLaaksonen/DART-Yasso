@@ -7,11 +7,11 @@ cp ../../model/yasso .
 cp ../../model/CreateInit .
 cp ../../model/ReadOut .
 
-#Copy files to the advance_model dir
+#Copy files to the advance_model dir CHECK THESE
 cp ../../model/init_ensemble.dat .
 cp ../../scripts/Simul_clim.dat .
 cp ../../scripts/Simul_litter.dat .
-cp ../../scripts/years.dat .
+#cp ../../scripts/years.dat .
 cp ../../model/ParY20.dat .
 cp ../../model/ens_projection.dat .
 
