@@ -81,7 +81,7 @@ type(time_type) :: time_step
 
 ! EXAMPLE: perhaps a namelist here for anything you want to/can set at runtime.
 ! this is optional!  only add things which can be changed at runtime.
-integer(i8) :: model_size = 6 !käsin
+integer(i8) :: model_size = 12 !Edit this by hand depending on the number of sites.
 integer     :: time_step_days = 0
 integer     :: time_step_seconds = 0
 
@@ -111,11 +111,12 @@ allocate(state_loc(model_size))
 
 ! Define the locations of the model state variables
 ! Example location following lorenz_96
-!lokaatio oikein, joka lokaatiossa 6 muuntujaa, lukee model sizesta, jos model size esim 12, ekat 1 jne.
+
+!HUOM! lokaatio oikein, joka lokaatiossa 6 muuntujaa, lukee model sizesta, jos model size esim 12, ekat 1 jne.?
+!osaa lukea 6 välein
 do i = 1, model_size
-    x_loc = 1.  
-!   x_loc = (i - 1.0_r8) / model_size
-   state_loc(i) =  set_location(x_loc)
+    x_loc = real(ceiling(real(i) / 6), kind=4)
+    state_loc(i) = set_location(x_loc)
 end do
 
 ! This time is both the minimum time you can ask the model to advance
@@ -275,12 +276,30 @@ location = state_loc(index_in)
 ! if (present(qty_type)) qty_type = QTY_STATE_VARIABLE
 
 !1 aina yks, 7, jne.
-if(index_in .eq. 1) qty_type = QTY_CARBON_SUM
-if(index_in .eq. 2) qty_type = QTY_ACID_SOLUBLE
-if(index_in .eq. 3) qty_type = QTY_WATER_SOLUBLE
-if(index_in .eq. 4) qty_type = QTY_ALCOHOL_SOLUBLE
-if(index_in .eq. 5) qty_type = QTY_NON_SOLUBLE
-if(index_in .eq. 6) qty_type = QTY_HUMUS
+!if(index_in .eq. 1) qty_type = QTY_CARBON_SUM
+if (mod(index_in - 1, 6) == 0) then
+  qty_type = QTY_CARBON_SUM
+end if
+!if(index_in .eq. 2) qty_type = QTY_ACID_SOLUBLE
+if (mod(index_in - 2, 6) == 0) then
+  qty_type = QTY_ACID_SOLUBLE
+end if
+!if(index_in .eq. 3) qty_type = QTY_WATER_SOLUBLE
+if (mod(index_in - 3, 6) == 0) then
+  qty_type = QTY_WATER_SOLUBLE
+end if
+!if(index_in .eq. 4) qty_type = QTY_ALCOHOL_SOLUBLE
+if (mod(index_in - 4, 6) == 0) then
+  qty_type = QTY_ALCOHOL_SOLUBLE
+end if
+!if(index_in .eq. 5) qty_type = QTY_NON_SOLUBLE
+if (mod(index_in - 5, 6) == 0) then
+  qty_type = QTY_NON_SOLUBLE
+end if
+!if(index_in .eq. 6) qty_type = QTY_HUMUS
+if (mod(index_in - 6, 6) == 0) then
+  qty_type = QTY_HUMUS
+end if
 
 end subroutine get_state_meta_data
 
