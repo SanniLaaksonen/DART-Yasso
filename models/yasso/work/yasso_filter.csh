@@ -11,13 +11,13 @@ cp ../../model/ReadOut .
 cp ../../model/init_ensemble.dat .
 cp ../../scripts/Simul_clim.dat .
 cp ../../scripts/Simul_litter.dat .
-#cp ../../scripts/years.dat .
+cp ../../scripts/years.dat .
 cp ../../model/ParY20.dat .
 cp ../../model/ens_projection.dat .
 
 @ ii = 1
 
-while ($ii <= 1) #change the number of loops here
+while ($ii <= 2) #change the number of loops here
 
     echo "$ii" > loop.dat
 

@@ -116,7 +116,7 @@ allocate(state_loc(model_size))
 do i=1, model_size/6
       do j=1,6
         k = (i-1)*6+j
-        x_loc = real(i)
+        x_loc = real(i/10) !divided by 10 temporarily
         state_loc(k) = set_location(x_loc)
       end do
 end do
