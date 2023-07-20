@@ -24,30 +24,37 @@ program ReadOut
   status = nf90_inq_varid(ncid, "state", varid)
   status = nf90_get_var(ncid, varid, Ens)
   
-  !Split Ens to vectors
-  do i = 1, n_sites
-    do j = 1, 6
-      do k = 1, sites
-        Vectors(k, j, i) = Ens((j-1)*sites+k, i)
-      end do
-    end do
-  end do
+  !print*,Ens
   
+  !Split Ens to vectors
+  
+  !do i = 1, n_sites
+    !do j = 1, 6
+      !do k = 1, sites
+        !Vectors(k, j, i) = Ens((j-1)*sites+k, i)
+      !end do
+    !end do
+  !end do
+  
+  !print*, Vectors
+  
+  loop_start = 2
+  loop_end = 6
 
 do site = 1, sites
 
   write (init_file, fmt='(a,i1,a)') 'init_ensemble_split_', site, '.dat'
   open(unit = 1, file = init_file, status = 'replace') !output_file
-  
-  !print*, Vectors(site,:,:)
 
   !Write Ens matrix
   do i = 1, 50
-    write(1,*) Vectors(site,2:6, i) !2-6, 8-12 originally
+    write(1,*) Ens(loop_start:loop_end, i) !write(1,*) Vectors(site,2:6, i) !2-6, 8-12, etc.
   end do
   
   close(1)
   
+  loop_start = loop_start+6
+  loop_end = loop_end+6
   
  end do
  

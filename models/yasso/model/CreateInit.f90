@@ -52,14 +52,11 @@ Program CreateInit
      
      !Create 3d array for sites number of matrixes
      open(unit=10, file='ens_projection_sites.dat')
-     read(10,*) a
+     read(10,*) Ens
      close(10)
-     do i=1,n
-       b(i,:,:) = transpose(reshape(a((i-1)*50*6+1:i*50*6), [6,50]))
-     end do
-     Ens = transpose(reshape(b, [50,6*n]))
 
      Ens_vector = reshape(Ens,(/ensemble_length/))
+     !print*,Ens_vector
   
      open(10, file='filter_input_yasso')
      !write (yasso_file, fmt='(a,i1)') 'filter_input_yasso_', site
