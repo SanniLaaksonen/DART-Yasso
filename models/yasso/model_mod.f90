@@ -81,7 +81,7 @@ type(time_type) :: time_step
 
 ! EXAMPLE: perhaps a namelist here for anything you want to/can set at runtime.
 ! this is optional!  only add things which can be changed at runtime.
-integer(i8) :: model_size = 12 !Edit this by hand depending on the number of sites.
+integer(i8) :: model_size = 6
 integer     :: time_step_days = 0
 integer     :: time_step_seconds = 0
 
@@ -101,7 +101,9 @@ contains
 subroutine static_init_model()
 
 real(r8) :: x_loc
-integer  :: i, dom_id, j, k
+integer  :: i,j, k, dom_id
+real(r8), allocatable :: state_loc_temp(:) !TEMPORARY
+allocate(state_loc_temp(model_size)) !TEMPORARY
 
 ! Do any initial setup needed, including reading the namelist values
 call initialize()
@@ -112,14 +114,22 @@ allocate(state_loc(model_size))
 ! Define the locations of the model state variables
 ! Example location following lorenz_96
 
+
 !Creates the location array from model_size, first 6 values will be 1, second 6 will be 2, etc.
-do i=1, model_size/6
-      do j=1,6
-        k = (i-1)*6+j
-        x_loc = real(i/10) !divided by 10 temporarily
-        state_loc(k) = set_location(x_loc)
-      end do
+!do i=1, model_size/6
+      !do j=1,6
+        !k = (i-1)*6+j
+        !x_loc = i
+        !state_loc(k) = set_location(x_loc)
+      !end do
+!end do
+
+!TEMPORARY
+state_loc_temp = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+do i = 1, model_size
+   state_loc(i) =  set_location(state_loc_temp(i))
 end do
+
 
 ! This time is both the minimum time you can ask the model to advance
 ! (for models that can be advanced by filter) and it sets the assimilation

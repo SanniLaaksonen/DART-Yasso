@@ -5,7 +5,7 @@ program ReadOut
   !Define file name
   character(len=*), parameter :: file_name = 'filter_output_yasso.nc'
   character(len=*), parameter :: output_file = 'init_ensemble.dat'
-  integer,parameter :: sites = 2 !Adjust this for number of sites
+  integer,parameter :: sites = 1 !Adjust this for number of sites
   integer, parameter :: n_ens = 50
   integer, parameter :: n_state = 6*sites
   integer :: site, loop_start, loop_end

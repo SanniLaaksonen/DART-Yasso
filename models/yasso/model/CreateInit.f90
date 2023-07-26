@@ -1,7 +1,7 @@
 Program CreateInit
   implicit none
 
-  integer, parameter :: n = 2 !Number of sites, adjust this by hand!
+  integer, parameter :: n = 1 !Number of sites, adjust this by hand!
   integer :: ii
   integer :: ensemble_size = 50
   integer :: state_vector_size = 6*n
@@ -48,7 +48,7 @@ Program CreateInit
       end do
      end do
      loc_vector = loc_form
-     !loc_vector = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
+     loc_vector = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
      
      !Create 3d array for sites number of matrixes
      open(unit=10, file='ens_projection_sites.dat')

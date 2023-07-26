@@ -22,7 +22,7 @@ cp ../../model/ens_projection_sites.dat .
 
 @ ii = 1
 
-while ($ii <= 2) #change the number of loops here
+while ($ii <= 1) #change the number of loops here
 
     echo "$ii" > loop.dat
 
