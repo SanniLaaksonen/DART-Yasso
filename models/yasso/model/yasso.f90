@@ -26,8 +26,8 @@ character(len=50) :: litter_file
 character(len=50) :: init_file
 character(len=50) :: ens_file
 
-!Determine the number of observation sites
-sites = 1
+!Determine the number of observation sites, adjust by hand!
+sites = 2
 
 length = lSimul !Size of weather conditions files
 

@@ -7,7 +7,7 @@ num_obs:		 1 max_num_obs:	 1
 observations
   first:	1	last:	 1
  OBS	 1
-10.53142
+11.82861
 -1		-1		-1
 obdef
 loc1d
@@ -15,4 +15,4 @@ loc1d
 kind
 -1
    0		 0
-0.9494444
+0.4747222

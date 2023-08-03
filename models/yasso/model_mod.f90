@@ -81,7 +81,7 @@ type(time_type) :: time_step
 
 ! EXAMPLE: perhaps a namelist here for anything you want to/can set at runtime.
 ! this is optional!  only add things which can be changed at runtime.
-integer(i8) :: model_size = 6
+integer(i8) :: model_size = 12
 integer     :: time_step_days = 0
 integer     :: time_step_seconds = 0
 
@@ -125,7 +125,7 @@ allocate(state_loc(model_size))
 !end do
 
 !TEMPORARY
-state_loc_temp = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+state_loc_temp = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
 do i = 1, model_size
    state_loc(i) =  set_location(state_loc_temp(i))
 end do
