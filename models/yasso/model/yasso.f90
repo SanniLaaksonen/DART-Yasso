@@ -11,7 +11,6 @@ integer :: sites
 integer :: site
 integer :: loop, fyear, lyear
 integer :: EnsSize = 50
-integer :: nplots = 1
 integer :: lSimul = 77, lAskov = 32, lGrig = 50, lKursk = 39, lRoth = 50, lUltuna = 52, lVers = 80 !81 old size for vers
 integer, allocatable, dimension(:) :: years
 real :: DN = 0., leac = 0.
@@ -34,7 +33,7 @@ length = lSimul !Size of weather conditions files
 allocate(prec(length))
 allocate(temp(length,12))
 allocate(years(length))
-allocate(nli(nplots,length,5))
+allocate(nli(sites,length,5))
 
 ! Read in the site specific climate file
 open(18, file='Simul_clim.dat')
@@ -79,7 +78,6 @@ open(21, file='ens_projection_sites.dat')
 do site = 1, sites
    ! Read in the site specific litter file
    write (litter_file, fmt='(a,i1,a)') 'Simul_litter_', site, '.dat'
-   !print*, litter_file
    open(19, file=litter_file)
    do ii = 1, length
       read(19,*) years(ii), nli(site,ii,:) !First nli number means litter file number
@@ -93,7 +91,8 @@ do site = 1, sites
       ! Run Yasso if the start time isn't 0. (The initial ensemble starts at the first observation so we don't want to move it forward, but compare the observation to it directly)
       if (alku .GT. 0) then
          ! alku is the time of the previous observation, 0 at the beginning, and we have already done that so start from the next year
-         do ii = alku, loppu
+          do ii = alku, loppu
+         !do ii = 1, 1
             NCP = -999.
             call mod5c(YaPa,1.,temp(ii,:),prec(ii),init,nli(site,ii,:),DN,leac,NCP,.FALSE.) !Check nli number
             init = NCP
@@ -105,7 +104,6 @@ do site = 1, sites
    close(11)
 end do
 close(21)
-
 
 
 End Program Yasso

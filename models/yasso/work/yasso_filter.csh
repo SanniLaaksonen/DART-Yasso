@@ -32,6 +32,8 @@ while ($ii <= 4) #change the number of loops here
     ./yasso
     ./CreateInit
     ncgen filter_input_yasso -o filter_input_yasso.nc
+    #copy filter input
+    cp filter_input_yasso.nc ../filter_input_yasso_$ii.nc
 
     cd ..
     cp advance_model/filter_input_yasso.nc .
