@@ -1,7 +1,7 @@
 Program CreateInit
   implicit none
 
-  integer, parameter :: n = 2 !Number of sites, adjust this by hand!
+  integer, parameter :: n = 2 !Number of sites
   integer :: ii
   integer :: ensemble_size = 50
   integer :: state_vector_size = 6*n
@@ -26,7 +26,7 @@ Program CreateInit
   allocate(prior_sd(state_vector_size))
   allocate(post_mean(state_vector_size))
   allocate(post_sd(state_vector_size))
-  allocate(Ens(state_vector_size,ensemble_size)) !State vector size 12 when 2 sites
+  allocate(Ens(state_vector_size,ensemble_size)) !State vector size = 12 when sites = 2, etc.
 
   prior_mean = 1.
   prior_sd = 0.6
@@ -40,14 +40,15 @@ Program CreateInit
   write(post_fmt, '(a,i0,a)') '(A2,', state_vector_size-1, '(F3.1:", "),F3.1,A)'
   
 
-     ! loc_vector = 1 !lokaatiovektori, lokaatio ekat 6 on 1, tokat 2 jne.
+     !Create location vector
      do i=1,n
       do j=1,6
         k = (i-1)*6+j
-        loc_form(k) = i !Edit this out if you want 1, 2, 3, etc.
+        loc_form(k) = i
       end do
      end do
      loc_vector = loc_form
+     !Temporarily determine location vector below
      loc_vector = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
      
      !Create 3d array for sites number of matrixes
@@ -56,11 +57,8 @@ Program CreateInit
      close(10)
 
      Ens_vector = reshape(Ens,(/ensemble_length/))
-     !print*,Ens_vector
   
      open(10, file='filter_input_yasso')
-     !write (yasso_file, fmt='(a,i1)') 'filter_input_yasso_', site
-     !open(10, file=yasso_file)
 
      write(10,'(a)') 'netcdf filter_input {'
      write(10,'(a)') 'dimensions:'

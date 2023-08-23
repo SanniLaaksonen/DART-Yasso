@@ -81,7 +81,7 @@ type(time_type) :: time_step
 
 ! EXAMPLE: perhaps a namelist here for anything you want to/can set at runtime.
 ! this is optional!  only add things which can be changed at runtime.
-integer(i8) :: model_size = 12
+integer(i8) :: model_size = 12 !Edit to be 6 x number of sites. For example, sites = 2, model_size = 12
 integer     :: time_step_days = 0
 integer     :: time_step_seconds = 0
 
@@ -102,8 +102,8 @@ subroutine static_init_model()
 
 real(r8) :: x_loc
 integer  :: i,j, k, dom_id
-real(r8), allocatable :: state_loc_temp(:) !TEMPORARY
-allocate(state_loc_temp(model_size)) !TEMPORARY
+real(r8), allocatable :: state_loc_temp(:)
+allocate(state_loc_temp(model_size))
 
 ! Do any initial setup needed, including reading the namelist values
 call initialize()
@@ -124,7 +124,7 @@ allocate(state_loc(model_size))
       !end do
 !end do
 
-!TEMPORARY
+!Temporarily define location
 state_loc_temp = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
 do i = 1, model_size
    state_loc(i) =  set_location(state_loc_temp(i))
@@ -287,7 +287,7 @@ integer,             intent(out), optional :: qty_type
 location = state_loc(index_in)
 ! if (present(qty_type)) qty_type = QTY_STATE_VARIABLE
 
-!1 aina yks, 7, jne.
+!Calculate pools
 !if(index_in .eq. 1) qty_type = QTY_CARBON_SUM
 if (mod(index_in - 1, 6) == 0) then
   qty_type = QTY_CARBON_SUM

@@ -17,7 +17,7 @@ real :: DN = 0., leac = 0.
 real :: TA, CP, s1, s2
 real, dimension(5) :: init, NCP
 real, allocatable, dimension(:) :: prec
-real, allocatable, dimension(:,:,:) :: nli !3D instead of matrix
+real, allocatable, dimension(:,:,:) :: nli
 real, allocatable, dimension(:,:) :: temp
 real, dimension(35) :: YaPa
 character(len=50) :: data_line = '(F12.3,5F12.7)'
@@ -25,7 +25,7 @@ character(len=50) :: litter_file
 character(len=50) :: init_file
 character(len=50) :: ens_file
 
-!Determine the number of observation sites, adjust by hand!
+!Determine the number of observation sites
 sites = 2
 
 length = lSimul !Size of weather conditions files
@@ -80,7 +80,7 @@ do site = 1, sites
    write (litter_file, fmt='(a,i1,a)') 'Simul_litter_', site, '.dat'
    open(19, file=litter_file)
    do ii = 1, length
-      read(19,*) years(ii), nli(site,ii,:) !First nli number means litter file number
+      read(19,*) years(ii), nli(site,ii,:)
    end do
    close(19)
    write (init_file, fmt='(a,i1,a)') 'init_ensemble_split_', site, '.dat'
@@ -94,10 +94,11 @@ do site = 1, sites
           do ii = alku, loppu
          !do ii = 1, 1
             NCP = -999.
-            call mod5c(YaPa,1.,temp(ii,:),prec(ii),init,nli(site,ii,:),DN,leac,NCP,.FALSE.) !Check nli number
+            call mod5c(YaPa,1.,temp(ii,:),prec(ii),init,nli(site,ii,:),DN,leac,NCP,.FALSE.)
             init = NCP
             s1 = sum(NCP)
          end do
+         !Write to output file
          write(21,*) sum(NCP), NCP
       end if
    end do
